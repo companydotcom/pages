@@ -19,10 +19,10 @@ jobs:
 
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: companydotcom/wave
-          branch: ATX-2519
+          ref: ATX-2519
           github-token: ${{ secrets.GITHUB_TOKEN }}
           submodules: true
 
