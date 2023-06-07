@@ -22,7 +22,8 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: companydotcom/wave
-          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ATX-2519
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           submodules: true
 
       - name: Pull & update submodules recursively
