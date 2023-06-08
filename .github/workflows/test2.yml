@@ -70,11 +70,11 @@
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             script: |
-              const res = await github.rest.issues.listForRepo({
+              const res = await rest.pulls.list({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
-              console.log(res)
+              console.log(res[0])
 
 
         ####################################
