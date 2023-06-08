@@ -90,7 +90,7 @@
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
                 pull_number: prNumber,
-                reviewers: ['ccdlt', 'nhu-mai-101']
+                reviewers: ['jacobgranberry', 'nhu-mai-101']
               });
               
 
