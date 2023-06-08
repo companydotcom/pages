@@ -18,7 +18,7 @@
       name: Submodule update
       runs-on: ubuntu-latest
       env:
-        PARENT_REPOSITORY: 'companydotcom/wave'
+        PARENT_REPOSITORY: 'wave'
         CHECKOUT_BRANCH: 'main'
         PR_AGAINST_BRANCH: 'main'
         OWNER: 'companydotcom'
