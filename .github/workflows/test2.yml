@@ -30,7 +30,10 @@
         ##########################
         - name: Checkout Code
           uses: actions/checkout@v3
-
+          
+        ##########################
+        # Checkout the parent code base #
+        ##########################
         - name: Checkout parent repository and branch
           uses: actions/checkout@v3
           with:
@@ -83,21 +86,12 @@
                 labels: ['submodule'],
               });
               
+              await github.rest.pulls.requestReviewers({
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}',
+                pull_number: prNumber
+                reviewers: ['ccdlt', 'nhu-mai-101']
+              });
+              
 
 
-
-        ####################################
-        # Run the action against code base #
-        ####################################
-        # - name: run action
-        #   id: run_action
-        #   uses: releasehub-com/github-action-create-pr-parent-submodule@v1
-        #   with:
-        #     github_token: ${{ secrets.SUBMOD_TOKEN }}
-        #     parent_repository: ${{ env.PARENT_REPOSITORY }}
-        #     checkout_branch: ${{ env.CHECKOUT_BRANCH}}
-        #     pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
-        #     owner: ${{ env.OWNER }}
-        #     reviewers: |
-        #       ccdlt
-        #       nuh-mai-101
