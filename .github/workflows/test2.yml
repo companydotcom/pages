@@ -69,19 +69,8 @@
           uses: actions/github-script@v5
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            script: |
-              github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['submodule']
-              })
-              github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.issue.number
-                reviewers: ['ccdlt', 'nhu-mai-101']
-              })
+            script: console.log(context)
+
 
         ####################################
         # Run the action against code base #
