@@ -75,12 +75,12 @@ jobs:
         id: submod
         uses: peter-evans/create-pull-request@v5
         with:
-          # token: ${{ secrets.SUBMOD_TOKEN }}
+          token: ${{ secrets.SUBMOD_TOKEN }}
           commit-message: Update Submodule
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          # branch: main
+          branch: main
           delete-branch: true
           title: '${{env.BRANCH}} | Update Submodule'
           body: |
