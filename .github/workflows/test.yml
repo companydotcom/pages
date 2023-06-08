@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: update
     env:
-      BRANCH: github.event.pull_request.base.ref
+      BRANCH: develop
 
     steps:
       - name: Checkout Repo
