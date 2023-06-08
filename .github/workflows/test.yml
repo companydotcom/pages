@@ -67,7 +67,7 @@ jobs:
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           signoff: false
-          branch: main
+          # branch: main
           delete-branch: true
           title: '(github.event.refs) | Update Submodule'
           body: |
