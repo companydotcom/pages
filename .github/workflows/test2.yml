@@ -23,6 +23,7 @@
         PR_AGAINST_BRANCH: 'main'
         OWNER: 'companydotcom'
 
+
       steps:
         ##########################
         # Checkout the code base #
@@ -58,7 +59,7 @@
               await github.rest.pulls.create({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
-                head: process.env.GITHUB_RUN_ID,
+                head: $GITHUB_RUN_ID,
                 base: '${{ env.PR_AGAINST_BRANCH }}',
                 title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
                 body: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
