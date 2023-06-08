@@ -26,20 +26,31 @@ jobs:
         with:
           repository: companydotcom/wave
           ref: ATX-2519
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SUBMOD_TOKEN }}
           submodules: recursive
 
-      - name: Pull & update submodules recursively
-        run: |
-          git submodule update --init --recursive
-          git submodule update --recursive --remote
+      - name: Trigger Test
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: companydotcom
+          repo: wave
+          github_token: ${{ secrets.SUBMOD_TOKEN }}
+          github_user: github-user
+          workflow_file_name: release.yml
+          ref: ATX-2519
+          client_payload: '{ submodule: pages }'
 
-      - name: Commit
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions - update submodules"
-          git add --all
-          git commit -m "Update submodules" || echo "No changes to commit"
-          git push
+      # - name: Pull & update submodules recursively
+      #   run: |
+      #     git submodule update --init --recursive
+      #     git submodule update --recursive --remote
+
+      # - name: Commit
+      #   run: |
+      #     git config user.email "actions@github.com"
+      #     git config user.name "GitHub Actions - update submodules"
+      #     git add --all
+      #     git commit -m "Update submodules" || echo "No changes to commit"
+      #     git push
   # trigger:
   #   runs-on: u
