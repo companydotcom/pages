@@ -9,9 +9,9 @@ on:
 
   push:
     branches:
-      - ATX-2519
+      # - ATX-2519
       # - main
-      # - develop
+      - develop
 
 jobs:
   update:
@@ -55,19 +55,21 @@ jobs:
     runs-on: ubuntu-latest
     needs: update
     env:
-      BRANCH: develop
+      BRANCH: github.event.push.base.ref
 
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
         with:
           repository: companydotcom/wave
-          ref: ${{env.BRANCH}}
+          ref: develop
           token: ${{ secrets.SUBMOD_TOKEN }}
           submodules: recursive
 
       - name: Make changes to pull request
-        run: date +%s > report.txt
+        run: |
+          date +%s > report.txt
+          echo "${{env.BRANCH}}"
 
       - name: Create Pull Request
         id: submod
