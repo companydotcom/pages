@@ -38,6 +38,7 @@
             git submodule update --init --recursive
             git submodule update --recursive --remote
             git checkout -b "ATX-$GITHUB_RUN_ID"
+            git add --all
             git commit -am "updating submodules"
             git push --set-upstream origin ATX-$GITHUB_RUN_ID
 
