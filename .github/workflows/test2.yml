@@ -53,8 +53,6 @@
 
         - name: Create pull request against target branch
           uses: actions/github-script@v5
-          env:
-            id: ${{ github.run_id }}
           with:
             github-token: ${{ secrets.SUBMOD_TOKEN }}
             script: |
@@ -76,7 +74,7 @@
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
-              const pr = res.data.filter(i => i.title.includes(process.env.GITHUB_RUN_ID));
+              const pr = res.data.filter(i => i.title.includes(${{ github.run_id }}));
               const prNumber = pr[0].number;
               await github.rest.issues.addLabels({
                 issue_number: prNumber,
