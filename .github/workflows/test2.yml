@@ -29,18 +29,76 @@
         ##########################
         - name: Checkout Code
           uses: actions/checkout@v3
-          # with:
-          #   submodules: recursive
+
+        - name: Checkout parent repository and branch
+          uses: actions/checkout@v3
+          with:
+            token: ${{ secrets.SUBMOD_TOKEN }}
+            repository: ${{ env.PARENT_REPOSITORY }}
+            ref: ${{ env.PR_AGAINST_BRANCH }}
+            submodules: true
+            fetch-depth: 0
+
+        - name: Create new branch and push changes
+          shell: bash
+          run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git submodule update --recursive --remote
+            git checkout -b "ATX-000/$GITHUB_RUN_ID"
+            git commit -am "updating submodules"
+            git push --set-upstream origin ATX-000/$GITHUB_RUN_ID
+
+        - name: Create pull request against target branch
+          uses: actions/github-script@v5
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              await github.rest.pulls.create({
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                head: process.env.GITHUB_RUN_ID,
+                base: '${{ env.PR_AGAINST_BRANCH }}',
+                title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
+                body: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
+              });
+
+        - name: Add labels and Reviewers
+          uses: actions/github-script@v5
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              const res = await github.rest.issues.listForRepo({
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+              });
+              const pr = res.data.filter(i => i.title.includes(process.env.GITHUB_RUN_ID));
+              const prNumber = pr[0].number;
+              await github.rest.issues.addLabels({
+                issue_number: prNumber,
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                labels: ['submodule']
+              });
+              await github.rest.pulls.requestReviewers({
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                pull_number: prNumber
+                reviewers: ['ccdlt', 'nhu-mai-101']
+              })
 
         ####################################
         # Run the action against code base #
         ####################################
-        - name: run action
-          id: run_action
-          uses: releasehub-com/github-action-create-pr-parent-submodule@v1
-          with:
-            github_token: ${{ secrets.SUBMOD_TOKEN }}
-            parent_repository: ${{ env.PARENT_REPOSITORY }}
-            checkout_branch: ${{ env.CHECKOUT_BRANCH}}
-            pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
-            owner: ${{ env.OWNER }}
+        # - name: run action
+        #   id: run_action
+        #   uses: releasehub-com/github-action-create-pr-parent-submodule@v1
+        #   with:
+        #     github_token: ${{ secrets.SUBMOD_TOKEN }}
+        #     parent_repository: ${{ env.PARENT_REPOSITORY }}
+        #     checkout_branch: ${{ env.CHECKOUT_BRANCH}}
+        #     pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
+        #     owner: ${{ env.OWNER }}
+        #     reviewers: |
+        #       ccdlt
+        #       nuh-mai-101
