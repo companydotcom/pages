@@ -45,9 +45,9 @@
             git config user.name github-actions
             git config user.email github-actions@github.com
             git submodule update --recursive --remote
-            git checkout -b "ATX-000/$GITHUB_RUN_ID"
+            git checkout -b "ATX-$GITHUB_RUN_ID"
             git commit -am "updating submodules"
-            git push --set-upstream origin ATX-000/$GITHUB_RUN_ID
+            git push --set-upstream origin ATX-$GITHUB_RUN_ID
 
         - name: Create pull request against target branch
           uses: actions/github-script@v5
