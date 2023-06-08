@@ -9,9 +9,9 @@ on:
 
   push:
     branches:
-      # - ATX-2519
+      - ATX-2519
       # - main
-      - develop
+      # - develop
 
 jobs:
   update:
