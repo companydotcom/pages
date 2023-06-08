@@ -27,7 +27,6 @@
             token: ${{ secrets.SUBMOD_TOKEN }}
             repository: '${{ env.OWNER }}/${{ env.PARENT_REPOSITORY }}'
             ref: ${{ env.PR_AGAINST_BRANCH }}
-            submodules: true
             fetch-depth: 0
 
         - name: Create new branch and push changes
