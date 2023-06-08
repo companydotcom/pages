@@ -37,6 +37,8 @@
             git config user.email "actions@github.com"
             git checkout -b "ATX-$GITHUB_RUN_ID"
             git submodule update --init --recursive
+            git add --all
+            git commit -am "updating submodules"
             git push --set-upstream origin ATX-$GITHUB_RUN_ID
 
         - name: Create pull request against target branch
