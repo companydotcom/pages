@@ -70,7 +70,7 @@
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             script: |
-              const res = await rest.pulls.list({
+              const res = await github.rest.pulls.list({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
