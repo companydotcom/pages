@@ -63,7 +63,7 @@ jobs:
         with:
           repository: companydotcom/wave
           ref: ${{env.BRANCH}}
-          # token: ${{ secrets.SUBMOD_TOKEN }}
+          token: ${{ secrets.SUBMOD_TOKEN }}
           submodules: recursive
 
       - name: Make changes to pull request
