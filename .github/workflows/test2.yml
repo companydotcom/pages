@@ -74,7 +74,20 @@
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
-              console.log(res.data)
+              const pr = res.data.find(i => i.title.includes(${{ github.run_id }}));
+              const prNumber = pr.number;
+              await github.rest.issues.addLabels({
+                issue_number: prNumber,
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}',
+                labels: ['submodule']
+              });
+              await github.rest.pulls.requestReviewers({
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}',
+                pull_number: prNumber
+                reviewers: ['ccdlt', 'nhu-mai-101']
+              })
 
 
         ####################################
