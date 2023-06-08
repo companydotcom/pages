@@ -68,9 +68,9 @@
         - name: Add labels and Reviewers
           uses: actions/github-script@v5
           with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+            github-token: ${{ secrets.SUBMOD_TOKEN }}
             script: |
-              const res = await github.rest.pulls.list({
+              const res = await github.rest.issues.listForRepo({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
