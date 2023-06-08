@@ -34,7 +34,7 @@
           uses: actions/checkout@v3
           with:
             token: ${{ secrets.SUBMOD_TOKEN }}
-            repository: ${{ env.PARENT_REPOSITORY }}
+            repository: '${{ env.OWNER }}/${{ env.PARENT_REPOSITORY }}'
             ref: ${{ env.PR_AGAINST_BRANCH }}
             submodules: true
             fetch-depth: 0
