@@ -75,21 +75,10 @@
                 repo: '${{ env.PARENT_REPOSITORY }}',
               });
               const pr = res.data.find(i => i.title.includes('${{ github.run_id }}'));
-              console.log('LOOOK HERE!!', pr)
               const prNumber = pr.number;
-              await github.rest.issues.addLabels({
-                issue_number: prNumber,
-                owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}',
-                labels: ['submodule'],
-                labels[].name
-              });
-              await github.rest.pulls.requestReviewers({
-                owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}',
-                pull_number: prNumber
-                reviewers: ['ccdlt', 'nhu-mai-101']
-              })
+              console.log('LOOOK HERE!!', prNumber)
+              
+
 
 
         ####################################
