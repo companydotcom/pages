@@ -54,9 +54,17 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     needs: update
+    env:
+      BRANCH: github.event.pull_request.base.ref
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          repository: companydotcom/wave
+          ref: ${{env.BRANCH}}
+          # token: ${{ secrets.SUBMOD_TOKEN }}
+          submodules: recursive
 
       - name: Make changes to pull request
         run: date +%s > report.txt
@@ -72,7 +80,7 @@ jobs:
           signoff: false
           # branch: main
           delete-branch: true
-          title: '(github.event.refs) | Update Submodule'
+          title: '${{env.BRANCH}} | Update Submodule'
           body: |
             Update report
             - Updated with *today's* date
