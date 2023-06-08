@@ -26,8 +26,8 @@ jobs:
         with:
           repository: companydotcom/wave
           ref: ATX-2519
-          token: ${{ secrets.SUBMOD_TOKEN }}
-          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          submodules: recursive
 
       - name: Pull & update submodules recursively
         run: |

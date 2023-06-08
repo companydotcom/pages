@@ -1,0 +1,44 @@
+name: Pull & update submodules (2)
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Pages Update'
+        required: true
+
+  push:
+    branches:
+      - ATX-2519
+      # - main
+      # - develop
+
+jobs:
+  build:
+    name: Submodule update
+    runs-on: ubuntu-latest
+    env:
+      PARENT_REPOSITORY: 'companydotcom/wave'
+      CHECKOUT_BRANCH: 'main'
+      PR_AGAINST_BRANCH: 'ATX-2519'
+      OWNER: 'companydotcom'
+
+    steps:
+      ##########################
+      # Checkout the code base #
+      ##########################
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      ####################################
+      # Run the action against code base #
+      ####################################
+      - name: run action
+        id: run_action
+        uses: releasehub-com/github-action-create-pr-parent-submodule@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          parent_repository: ${{ env.PARENT_REPOSITORY }}
+          checkout_branch: ${{ env.CHECKOUT_BRANCH}}
+          pr_against_branch: ${{ env.PR_AGAINST_BRANCH }}
+          owner: ${{ env.OWNER }}
