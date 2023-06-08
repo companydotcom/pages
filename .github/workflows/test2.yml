@@ -56,7 +56,7 @@
             script: |
               await github.rest.pulls.create({
                 owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                repo: '${{ env.PARENT_REPOSITORY }}',
                 head: process.env.GITHUB_RUN_ID,
                 base: '${{ env.PR_AGAINST_BRANCH }}',
                 title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
@@ -70,19 +70,19 @@
             script: |
               const res = await github.rest.issues.listForRepo({
                 owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                repo: '${{ env.PARENT_REPOSITORY }}',
               });
               const pr = res.data.filter(i => i.title.includes(process.env.GITHUB_RUN_ID));
               const prNumber = pr[0].number;
               await github.rest.issues.addLabels({
                 issue_number: prNumber,
                 owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                repo: '${{ env.PARENT_REPOSITORY }}',
                 labels: ['submodule']
               });
               await github.rest.pulls.requestReviewers({
                 owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}'.split('/')[1].trim(),
+                repo: '${{ env.PARENT_REPOSITORY }}',
                 pull_number: prNumber
                 reviewers: ['ccdlt', 'nhu-mai-101']
               })
