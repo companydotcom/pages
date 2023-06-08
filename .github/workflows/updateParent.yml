@@ -1,39 +1,24 @@
 ---
   name: Submodule Updates
-
-  #############################
-  # Start the job on all push #
-  #############################
   on:
-    push:
-      branches-ignore: [master, main]
-    # pull_request:
-    #   branches: [master, main]
+    pull_request:
+      branches: [develop, main]
 
-  ###############
-  # Set the Job #
-  ###############
   jobs:
     build:
       name: Submodule update
       runs-on: ubuntu-latest
       env:
         PARENT_REPOSITORY: 'wave'
-        CHECKOUT_BRANCH: 'main'
-        PR_AGAINST_BRANCH: 'main'
+        CHECKOUT_BRANCH: '${{ github.base_ref }}'
+        PR_AGAINST_BRANCH: '${{ github.base_ref }}'
         OWNER: 'companydotcom'
 
 
       steps:
-        ##########################
-        # Checkout the code base #
-        ##########################
         - name: Checkout Code
           uses: actions/checkout@v3
-          
-        ##########################
-        # Checkout the parent code base #
-        ##########################
+
         - name: Checkout parent repository and branch
           uses: actions/checkout@v3
           with:
@@ -62,7 +47,7 @@
               await github.rest.pulls.create({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
-                head:`ATX-${{ github.run_id }}`,
+                head:'ATX-${{ github.run_id }}',
                 base: '${{ env.PR_AGAINST_BRANCH }}',
                 title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
                 body: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
@@ -85,13 +70,12 @@
                 repo: '${{ env.PARENT_REPOSITORY }}',
                 labels: ['submodule'],
               });
-              
               await github.rest.pulls.requestReviewers({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
                 pull_number: prNumber,
-                reviewers: ['jacobgranberry', 'nhu-mai-101']
+                reviewers: ['jacobgranberry', 'ctbwx']
               });
-              
+
 
 
