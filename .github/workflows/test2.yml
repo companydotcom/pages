@@ -81,7 +81,8 @@
                 issue_number: prNumber,
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
-                labels: ['submodule']
+                labels: ['submodule'],
+                labels[].name
               });
               await github.rest.pulls.requestReviewers({
                 owner: '${{ env.OWNER }}',
