@@ -61,7 +61,7 @@
               await github.rest.pulls.create({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
-                head:'ATX-${{ env.github_run_id }}',
+                head:'ATX-${{ GITHUB_RUN_ID }}',
                 base: '${{ env.PR_AGAINST_BRANCH }}',
                 title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
                 body: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
