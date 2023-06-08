@@ -76,7 +76,12 @@
               });
               const pr = res.data.find(i => i.title.includes('${{ github.run_id }}'));
               const prNumber = pr.number;
-              console.log('LOOOK HERE!!', prNumber)
+              await github.rest.issues.addLabels({
+                issue_number: prNumber,
+                owner: '${{ env.OWNER }}',
+                repo: '${{ env.PARENT_REPOSITORY }}',
+                labels: ['submodule'],
+              });
               
 
 
