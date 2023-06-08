@@ -16,18 +16,18 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+    # permissions:
+    #   id-token: write
+    #   contents: read
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-        with:
-          repository: companydotcom/wave
-          ref: ATX-2519
-          token: ${{ secrets.SUBMOD_TOKEN }}
-          submodules: recursive
+      # - name: Checkout Repo
+      #   uses: actions/checkout@v3
+      #   with:
+      #     repository: companydotcom/wave
+      #     ref: ATX-2519
+      #     token: ${{ secrets.SUBMOD_TOKEN }}
+      #     submodules: recursive
 
       - name: Trigger Test
         uses: convictional/trigger-workflow-and-wait@v1.6.1
@@ -36,7 +36,7 @@ jobs:
           repo: wave
           github_token: ${{ secrets.SUBMOD_TOKEN }}
           github_user: github-user
-          workflow_file_name: release.yml
+          workflow_file_name: test.yml
           ref: ATX-2519
           client_payload: '{ submodule: pages }'
 
