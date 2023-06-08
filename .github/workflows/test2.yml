@@ -89,7 +89,7 @@
               await github.rest.pulls.requestReviewers({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
-                pull_number: prNumber
+                pull_number: prNumber,
                 reviewers: ['ccdlt', 'nhu-mai-101']
               });
               
