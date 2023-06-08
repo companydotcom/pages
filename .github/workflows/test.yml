@@ -35,7 +35,6 @@ jobs:
           owner: companydotcom
           repo: wave
           github_token: ${{ secrets.SUBMOD_TOKEN }}
-          github_user: github-user
           workflow_file_name: test.yml
           ref: ATX-2519
           client_payload: '{ submodule: pages }'
