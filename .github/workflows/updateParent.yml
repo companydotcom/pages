@@ -15,8 +15,10 @@
       runs-on: ubuntu-latest
       env:
         PARENT_REPOSITORY: 'wave'
-        CHECKOUT_BRANCH: '${{ github.base_ref }}'
-        PR_AGAINST_BRANCH: '${{ github.base_ref }}'
+        CHECKOUT_BRANCH: 'ATX-2519'
+        # CHECKOUT_BRANCH: '${{ github.base_ref }}'
+        PR_AGAINST_BRANCH: 'ATX-2519'
+        # PR_AGAINST_BRANCH: '${{ github.base_ref }}'
         OWNER: 'companydotcom'
 
 
