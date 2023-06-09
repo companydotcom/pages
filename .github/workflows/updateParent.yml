@@ -33,13 +33,14 @@
         - name: Create new branch and push changes
           shell: bash
           run: |
+            git submodule update --init --recursive
             git submodule update --recursive --remote
             git config user.name "GitHub Actions - update submodules"
             git config user.email "actions@github.com"
-            git checkout -b "ATX-$GITHUB_RUN_ID"
+            git checkout -b "ATX-${{ github.run_id }}"
             git add --all
-            git commit -am "updating submodules"
-            git push --set-upstream origin ATX-$GITHUB_RUN_ID
+            git commit -am "ATX-${{ github.run_id }} | updating submodules" || echo "No changes to commit"
+            git push --set-upstream origin ATX-${{ github.run_id }}
 
         - name: Create pull request against target branch
           uses: actions/github-script@v5
@@ -51,8 +52,8 @@
                 repo: '${{ env.PARENT_REPOSITORY }}',
                 head:'ATX-${{ github.run_id }}',
                 base: '${{ env.PR_AGAINST_BRANCH }}',
-                title: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
-                body: `[Auto-generated] Submodule Updates ${process.env.GITHUB_RUN_ID}`,
+                title: `ATX-${{ github.run_id }} | [Auto-generated] Submodule Updates`,
+                body: `[Auto-generated] Submodule Updates ${{ github.run_id }}`,
               });
 
         - name: Add labels and Reviewers
@@ -78,6 +79,7 @@
                 pull_number: prNumber,
                 reviewers: ['jacobgranberry', 'ctbwx']
               });
+
 
 
 
