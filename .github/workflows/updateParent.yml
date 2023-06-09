@@ -33,6 +33,7 @@
         - name: Create new branch and push changes
           shell: bash
           run: |
+            git submodule update --init --recursive
             git submodule update --recursive --remote
             git config user.name "GitHub Actions - update submodules"
             git config user.email "actions@github.com"
