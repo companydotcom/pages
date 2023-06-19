@@ -3,7 +3,7 @@
   on:
     push:
       branches:
-        - main
+        - ATX-2519
     # pull_request:
     #   branches:
     #     - main
