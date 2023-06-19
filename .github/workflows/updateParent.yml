@@ -70,6 +70,7 @@
             author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
             signoff: false
             branch: ATX-${{ github.run_id }}
+            base: main
             delete-branch: true
             title: 'ATX-${{ github.run_id }} | [Auto-generated] Submodule Updates'
             body: |
