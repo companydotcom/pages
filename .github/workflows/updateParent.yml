@@ -13,8 +13,8 @@
       runs-on: ubuntu-latest
       env:
         PARENT_REPOSITORY: 'wave'
-        CHECKOUT_BRANCH: main
-        PR_AGAINST_BRANCH: main
+        CHECKOUT_BRANCH: 'main'
+        PR_AGAINST_BRANCH: 'main'
         OWNER: 'companydotcom'
 
 
