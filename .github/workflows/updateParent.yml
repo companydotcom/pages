@@ -71,7 +71,7 @@
             signoff: false
             branch: ATX-${{ github.run_id }}
             base: main
-            delete-branch: true
+            delete-branch: false
             title: 'ATX-${{ github.run_id }} | [Auto-generated] Submodule Updates'
             body: |
               Update report
