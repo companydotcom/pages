@@ -1,14 +1,11 @@
 ---
   name: Submodule Updates
   on:
-    push:
+    pull_request:
       branches:
         - main
-    # pull_request:
-    #   branches:
-    #     - main
-    #   types:
-    #     - closed
+      types:
+        - closed
 
   jobs:
     build:
@@ -51,8 +48,6 @@
           with:
             github-token: ${{ secrets.WAVE_PAGES_TOKEN }}
             script: |
-              git config user.name "GitHub Actions - update submodules"
-              git config user.email "actions@github.com"
               await github.rest.pulls.create({
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
