@@ -1,11 +1,14 @@
 ---
   name: Submodule Updates
   on:
-    pull_request:
+    push:
       branches:
         - main
-      types:
-        - closed
+    # pull_request:
+    #   branches:
+    #     - main
+    #   types:
+    #     - closed
 
   jobs:
     build:
@@ -55,6 +58,7 @@
                 base: '${{ env.PR_AGAINST_BRANCH }}',
                 title: `ATX-${{ github.run_id }} | [Auto-generated] Submodule Updates`,
                 body: `[Auto-generated] Submodule Updates ${{ github.run_id }}`,
+                author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
               });
 
         - name: Add labels and Reviewers
