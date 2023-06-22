@@ -1,14 +1,11 @@
 ---
   name: Submodule Updates
   on:
-    push:
+    pull_request:
       branches:
-        - ATX-2520
-    # pull_request:
-    #   branches:
-    #     - main
-    #   types:
-    #     - closed
+        - main
+      types:
+        - closed
 
   jobs:
     build:
