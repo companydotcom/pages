@@ -3,7 +3,7 @@
   on:
     push:
       branches:
-        -ATX-2520
+        - ATX-2520
     # pull_request:
     #   branches:
     #     - main
