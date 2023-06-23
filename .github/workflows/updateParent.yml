@@ -57,7 +57,7 @@
                 body: `[Auto-generated] Submodule Updates ${{ github.run_id }}`,
               });
 
-        - name: Add labels and Reviewers
+        - name: Add labels
           uses: actions/github-script@v5
           with:
             github-token: ${{ secrets.WAVE_PAGES_TOKEN  }}
@@ -73,12 +73,6 @@
                 owner: '${{ env.OWNER }}',
                 repo: '${{ env.PARENT_REPOSITORY }}',
                 labels: ['submodule'],
-              });
-              await github.rest.pulls.requestReviewers({
-                owner: '${{ env.OWNER }}',
-                repo: '${{ env.PARENT_REPOSITORY }}',
-                pull_number: prNumber,
-                reviewers: ['jacobgranberry']
               });
 
 
