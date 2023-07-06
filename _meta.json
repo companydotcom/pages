@@ -1,5 +1,9 @@
 {
+  "index": "Introduction",
   "getting-started": "Getting Started",
+  "build": "Build",
+  "publish-and-deploy": "Publish and Deploy",
+  "cli": "CLI",
   "---": {
     "type": "separator"
   },
